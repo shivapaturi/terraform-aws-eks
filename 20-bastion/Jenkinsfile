@@ -27,7 +27,7 @@ pipeline {
                         region: "${REGION}"
                     ) {
                         sh """
-                            cd 10-sg
+                            cd 20-bastion
                             terraform init -reconfigure
                         """
                     }
@@ -42,7 +42,7 @@ pipeline {
                         region: "${REGION}"
                     ) {
                         sh """
-                            cd 10-sg
+                            cd 20-bastion
                             terraform plan
                         """
                     }
@@ -57,7 +57,7 @@ pipeline {
                         region: "${REGION}"
                     ) {
                         sh """
-                            cd 10-sg
+                            cd 20-bastion
                             terraform apply -auto-approve
                         """
                     }
