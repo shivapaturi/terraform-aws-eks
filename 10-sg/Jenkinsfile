@@ -52,7 +52,7 @@ pipeline {
                 }
             }
         }
-        stage('BASTION ACM EKS INGRESS-ALB ') {
+        stage('BASTION ACM EKS INGRESS-ALB') {
             parallel {
                 stage('Trigger BASTION') {
                     steps {
@@ -83,18 +83,19 @@ pipeline {
                         }
                     }
                 }
-                stage('INGRESS_ALB') {
-                    steps {
-                        script {
-                            build job: '70-ingress-alb', 
-                            propagate: false,  // even SG fails VPC will not be effected
-                            wait: false // VPC will not wait for SG pipeline completion
-                        }
-                    }
-                }              
+                            
             }
                 
         }
+        stage('Trigger ALB') {
+            steps {
+                script {
+                    build job: '70-ingress-alb', 
+                        propagate: false,  // even SG fails VPC will not be effected
+                        wait: false // VPC will not wait for SG pipeline completion
+                }
+            }
+        }  
     }
     post { 
         always { 
