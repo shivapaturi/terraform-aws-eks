@@ -75,7 +75,7 @@ resource "aws_lb_listener_rule" "frontend" {
 
   condition {
     host_header {
-      values = ["${var.environment}.${var.zone_name}"] # https://dev.daws84s.site
+      values = ["${var.environment}.${var.zone_name}"] # https://mydaws.daws84s.site
     }
   }
 }
