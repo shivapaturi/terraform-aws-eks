@@ -1,9 +1,20 @@
+data "aws_kms_alias" "eks" {
+  name = "alias/eks/roboshop-dev"
+}
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0" # this is module version
 
   name               = "${var.project}-${var.environment}"
   kubernetes_version = "1.33"
+
+  create_kms_key              = false
+  create_cloudwatch_log_group = false
+
+   encryption_config = {
+    provider_key_arn = data.aws_kms_alias.eks.target_key_arn
+    resources        = ["secrets"]
+  }
 
   addons = {
     coredns                = {}
